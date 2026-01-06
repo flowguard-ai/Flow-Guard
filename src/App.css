@@ -437,7 +437,7 @@ section {
 .impact-list li {
   font-size: 0.95rem;
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--primary-deep-blue);
   padding-left: 20px;
   position: relative;
 }
