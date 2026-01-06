@@ -7,7 +7,39 @@ import motherImg from './assets/mother_smiling.png';
 import webcamImg from './assets/webcam_child_face.png';
 import browserImg from './assets/study_browser_screen.png';
 import consultImg from './assets/consultation_premium.png';
+import { useState } from 'react';
 import './App.css';
+
+// Animation Variants
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.2
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.8, ease: "easeOut" }
+  }
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, scale: 0.95, y: 30 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" }
+  }
+};
 
 // Mock Data for graphs
 const attentionData = [
@@ -84,7 +116,6 @@ const HeroSection = () => (
         <p>아이의 의지력을 결정하는 것은 막연한 다짐과 학부모의 압박이 아닌 시스템입니다.</p>
         <div className="hero-actions">
           <button className="primary-btn" onClick={() => document.getElementById('consultation').scrollIntoView({ behavior: 'smooth' })}>무료 상담 신청하기 <ArrowRight size={18} /></button>
-          <button className="secondary-btn">집중력 자가진단</button>
         </div>
       </motion.div>
     </div>
@@ -110,18 +141,26 @@ const ProblemSection = () => (
         <p>책상 앞 3시간, 하지만 진짜 몰입은 단 12분일 수 있습니다.</p>
       </motion.div>
 
-      <div className="problem-grid">
+      <motion.div
+        className="problem-grid"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+      >
         <motion.div
           className="problem-card"
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          variants={cardVariants}
         >
           <h3>평균 집중력 실태</h3>
           <div className="stat-value">단 8초</div>
           <p>스마트폰 중독으로 짧아진 뇌의 집중 시간</p>
-          <div className="chart-container">
+          <motion.div
+            className="chart-container"
+            initial={{ opacity: 0, scaleX: 0 }}
+            whileInView={{ opacity: 1, scaleX: 1 }}
+            transition={{ duration: 1.2, delay: 0.5 }}
+          >
             <ResponsiveContainer width="100%" height={200}>
               <AreaChart data={attentionData}>
                 <defs>
@@ -130,38 +169,54 @@ const ProblemSection = () => (
                     <stop offset="95%" stopColor="#ef4444" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <Area type="monotone" dataKey="value" stroke="#ef4444" fillOpacity={1} fill="url(#colorValue)" />
+                <Area
+                  type="monotone"
+                  dataKey="value"
+                  stroke="#ef4444"
+                  fillOpacity={1}
+                  fill="url(#colorValue)"
+                  animationDuration={2000}
+                />
               </AreaChart>
             </ResponsiveContainer>
-          </div>
+          </motion.div>
           <p className="card-footer">자극적인 미디어에 중독된 '팝콘 브레인' 현상</p>
         </motion.div>
 
         <motion.div
           className="problem-card highlight"
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.4 }}
+          variants={cardVariants}
         >
           <h3>중등 성적 절벽</h3>
           <p>심층 집중력 부재로 인한 성적 급락 곡선</p>
-          <div className="chart-container">
+          <motion.div
+            className="chart-container"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.8 }}
+          >
             <ResponsiveContainer width="100%" height={200}>
               <LineChart data={cliffData}>
                 <XAxis dataKey="grade" stroke="#64748B" />
                 <Tooltip />
-                <Line type="step" dataKey="score" stroke="#ef4444" strokeWidth={3} dot={{ r: 6, fill: '#ef4444' }} />
+                <Line
+                  type="step"
+                  dataKey="score"
+                  stroke="#ef4444"
+                  strokeWidth={3}
+                  dot={{ r: 6, fill: '#ef4444' }}
+                  animationDuration={2000}
+                />
               </LineChart>
             </ResponsiveContainer>
-          </div>
+          </motion.div>
           <p className="card-footer">초등 상위권 80%가 중학 진학 후 경험하는 현실</p>
           <div className="cliff-warning">
             <p>단순 암기인 초등 공부는 집중력 없이도 가능합니다.<br />
               하지만 사고력을 요하는 고등 지식은 <strong>'심층 집중력'</strong> 없이는 절대 정복할 수 없습니다.</p>
           </div>
         </motion.div>
-      </div>
+      </motion.div>
       <motion.div
         className="golden-time-callout glass"
         initial={{ opacity: 0, scale: 0.95 }}
@@ -192,8 +247,14 @@ const BetaResults = () => (
         <h2>[실제 베타 테스터 1개월 변화 수치]</h2>
         <p className="beta-impact-text">수천 개의 데이터가 증명하는 몰입의 힘, 이제 우리 아이의 차례입니다.</p>
       </motion.div>
-      <div className="beta-grid">
-        <motion.div className="beta-card" whileHover={{ y: -10 }}>
+      <motion.div
+        className="beta-grid"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+      >
+        <motion.div className="beta-card" variants={itemVariants} whileHover={{ y: -10, boxShadow: "0 20px 40px rgba(16, 185, 129, 0.2)" }}>
           <div className="beta-user">A학생 (초6)</div>
           <div className="beta-metric">평균 집중 지속 시간</div>
           <div className="beta-value-group">
@@ -203,7 +264,7 @@ const BetaResults = () => (
           </div>
           <div className="beta-growth">250% 상승 🚀</div>
         </motion.div>
-        <motion.div className="beta-card" whileHover={{ y: -10 }}>
+        <motion.div className="beta-card" variants={itemVariants} whileHover={{ y: -10, boxShadow: "0 20px 40px rgba(16, 185, 129, 0.2)" }}>
           <div className="beta-user">B학생 (중2)</div>
           <div className="beta-metric">일일 순공 중 '딴짓 비율'</div>
           <div className="beta-value-group">
@@ -213,7 +274,7 @@ const BetaResults = () => (
           </div>
           <div className="beta-growth">획기적 감소 📉</div>
         </motion.div>
-      </div>
+      </motion.div>
 
       <div className="trust-bridge">
         <p>단순한 수치가 아닙니다. <strong>아이의 미래를 바꾸는 실질적인 변화</strong>입니다.</p>
@@ -321,13 +382,13 @@ const SystemSection = () => (
 
       <motion.div
         className="kakao-mockup"
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1 }}
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-50px" }}
       >
         {/* Message 1 */}
-        <div className="kakao-msg-wrapper">
+        <motion.div className="kakao-msg-wrapper" variants={itemVariants}>
           <div className="kakao-profile">F</div>
           <div className="kakao-content">
             <div className="kakao-name">FlowGuard</div>
@@ -335,9 +396,9 @@ const SystemSection = () => (
               [격려] OO이가 초집중 상태입니다! (60분 돌파) 🚀
             </div>
           </div>
-        </div>
+        </motion.div>
         {/* Message 2 */}
-        <div className="kakao-msg-wrapper">
+        <motion.div className="kakao-msg-wrapper" variants={itemVariants}>
           <div className="kakao-profile">F</div>
           <div className="kakao-content">
             <div className="kakao-name">FlowGuard</div>
@@ -345,9 +406,9 @@ const SystemSection = () => (
               [주의] OO이가 3분간 자리를 비웠습니다. 확인이 필요합니다. ⚠️
             </div>
           </div>
-        </div>
+        </motion.div>
         {/* Message 3 */}
-        <div className="kakao-msg-wrapper">
+        <motion.div className="kakao-msg-wrapper" variants={itemVariants}>
           <div className="kakao-profile">F</div>
           <div className="kakao-content">
             <div className="kakao-name">FlowGuard</div>
@@ -358,9 +419,9 @@ const SystemSection = () => (
               📝 OO이의 한 줄 회고: '오늘은 함수 문제를 다 풀어서 뿌듯해요.'
             </div>
           </div>
-        </div>
+        </motion.div>
         {/* Message 4 */}
-        <div className="kakao-msg-wrapper">
+        <motion.div className="kakao-msg-wrapper" variants={itemVariants}>
           <div className="kakao-profile">F</div>
           <div className="kakao-content">
             <div className="kakao-name">FlowGuard</div>
@@ -371,7 +432,7 @@ const SystemSection = () => (
               <span className="link-text">클릭 시 일간 상세 리포트 페이지 접속</span>
             </div>
           </div>
-        </div>
+        </motion.div>
       </motion.div>
     </div>
   </section>
@@ -481,53 +542,118 @@ const SocialProofSection = () => (
   </section>
 );
 
-const ConsultationForm = () => (
-  <section id="consultation" className="consultation">
-    <div className="container">
-      <div className="consult-layout glass">
-        <div className="consult-text">
-          <div className="section-badge">무료 상담 신청</div>
-          <h2>우리 아이의 공부 정체기,<br /> 전문가와 함께 해결하세요.</h2>
-          <p>FlowGuard의 시스템 도입 전, 아이의 성향과 집중력 실태를 무료로 진단해 드립니다.</p>
+const ConsultationForm = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    grade: '초등 5학년',
+    contact: '',
+    inquiry: ''
+  });
 
-          <form className="consult-form" onSubmit={(e) => e.preventDefault()}>
-            <div className="form-group-row">
-              <div className="form-group">
-                <label>학부모 성함</label>
-                <input type="text" placeholder="성함을 입력해주세요" />
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const timestamp = new Date().toLocaleString();
+    const submissionData = {
+      ...formData,
+      submittedAt: timestamp,
+      userAgent: navigator.userAgent
+    };
+
+    // DB 전송 로직 (예: Google Sheets API, Serverless Function, etc.)
+    console.log('Consultation Submitted:', submissionData);
+    alert('상담 신청이 완료되었습니다. 전문가가 곧 연락드리겠습니다.');
+
+    // Google Sheets 연동을 위한 안내:
+    // 실제 운영 시에는 Sheet.best 또는 Google Apps Script를 사용하여 이 데이터를 구글 시트에 바로 기록할 수 있습니다.
+  };
+
+  return (
+    <section id="consultation" className="consultation">
+      <div className="container">
+        <div className="consult-layout glass">
+          <div className="consult-text">
+            <div className="section-badge">무료 상담 신청</div>
+            <h2>우리 아이의 공부 정체기,<br /> 전문가와 함께 해결하세요.</h2>
+            <p>FlowGuard의 시스템 도입 전, 아이의 성향과 집중력 실태를 무료로 진단해 드립니다.</p>
+
+            <form className="consult-form" onSubmit={handleSubmit}>
+              <div className="form-group-row">
+                <div className="form-group">
+                  <label>학부모 성함</label>
+                  <input
+                    type="text"
+                    placeholder="성함을 입력해주세요"
+                    required
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  />
+                </div>
+                <div className="form-group">
+                  <label>아이 학년</label>
+                  <select
+                    value={formData.grade}
+                    onChange={(e) => setFormData({ ...formData, grade: e.target.value })}
+                  >
+                    <optgroup label="초등권장 (골든타임)">
+                      <option>초등 5학년</option>
+                      <option>초등 6학년</option>
+                    </optgroup>
+                    <optgroup label="중등권장 (절벽대비)">
+                      <option>중등 1학년</option>
+                      <option>중등 2학년</option>
+                      <option>중등 3학년</option>
+                    </optgroup>
+                    <optgroup label="고등권장">
+                      <option>고등 1학년</option>
+                      <option>고등 2학년</option>
+                      <option>고등 3학년</option>
+                    </optgroup>
+                    <optgroup label="기타">
+                      <option>기타 (초등 1~4학년)</option>
+                    </optgroup>
+                  </select>
+                </div>
               </div>
               <div className="form-group">
-                <label>아이 학년</label>
-                <select>
-                  <option>초등학생</option>
-                  <option>중학생</option>
-                  <option>고등학생</option>
-                </select>
+                <label>연락처</label>
+                <input
+                  type="tel"
+                  placeholder="010-0000-0000"
+                  required
+                  value={formData.contact}
+                  onChange={(e) => setFormData({ ...formData, contact: e.target.value })}
+                />
               </div>
-            </div>
-            <div className="form-group">
-              <label>연락처</label>
-              <input type="tel" placeholder="010-0000-0000" />
-            </div>
-            <button type="submit" className="submit-btn highlight-pulse">
-              무료 상담 전문가 연결하기
-            </button>
-          </form>
-          <p className="privacy-hint">정보는 오직 상담 목적으로만 사용되며 안전하게 보호됩니다.</p>
-        </div>
-        <div className="consult-visual">
-          <motion.img
-            src={consultImg}
-            alt="Consultation Illustration"
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-          />
+              <div className="form-group">
+                <label>문의 사항 (선택)</label>
+                <textarea
+                  placeholder="아이의 학습 고민이나 궁금하신 점을 적어주세요."
+                  rows="3"
+                  value={formData.inquiry}
+                  onChange={(e) => setFormData({ ...formData, inquiry: e.target.value })}
+                ></textarea>
+              </div>
+              <button type="submit" className="submit-btn highlight-pulse">
+                무료 상담 전문가 연결하기
+              </button>
+            </form>
+            <p className="privacy-hint">정보는 오직 상담 목적으로만 사용되며 안전하게 보호됩니다.</p>
+          </div>
+          <div className="consult-visual">
+            <motion.img
+              src={consultImg}
+              alt="Consultation Illustration"
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8 }}
+              style={{ mixBlendMode: 'multiply' }}
+            />
+          </div>
         </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 const Footer = () => (
   <footer id="footer" className="footer">
