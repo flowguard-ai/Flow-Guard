@@ -7,7 +7,7 @@ import motherImg from './assets/mother_smiling.png';
 import webcamImg from './assets/webcam_child_face.png';
 import browserImg from './assets/study_browser_screen.png';
 import consultImg from './assets/consultation_premium.png';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import './App.css';
 
 // Animation Variants
@@ -91,7 +91,7 @@ const Header = () => (
         <a href="#system">시스템</a>
         <a href="#report">리포트</a>
       </nav>
-      <button className="cta-button" onClick={() => document.getElementById('consultation').scrollIntoView({ behavior: 'smooth' })}>무료 상담 신청</button>
+      <button className="cta-button" onClick={() => document.getElementById('consultation').scrollIntoView({ behavior: 'smooth' })}>내 아이 집중력 MRI 촬영하기</button>
     </div>
   </header>
 );
@@ -114,7 +114,7 @@ const HeroSection = () => (
         <h1>초5~중2, 우리 아이 전두엽을 살릴<br />마지막 <span>골든타임</span>입니다.</h1>
         <p>아이의 의지력을 결정하는 것은 막연한 다짐과 학부모의 압박이 아닌 시스템입니다.</p>
         <div className="hero-actions">
-          <button className="primary-btn" onClick={() => document.getElementById('consultation').scrollIntoView({ behavior: 'smooth' })}>무료 상담 신청하기 <ArrowRight size={18} /></button>
+          <button className="primary-btn" onClick={() => document.getElementById('consultation').scrollIntoView({ behavior: 'smooth' })}>내 아이 집중력 MRI 촬영하기 <ArrowRight size={18} /></button>
         </div>
       </motion.div>
     </div>
@@ -137,7 +137,7 @@ const ProblemSection = () => (
         transition={{ duration: 0.8 }}
       >
         <h2>우리 아이, 진짜 공부하고 있을까요?</h2>
-        <p>책상 앞 3시간, 하지만 진짜 몰입은 단 12분일 수 있습니다.</p>
+        <p>책상 앞 3시간, 하지만 <strong>진짜 몰입은 단 12분</strong>일 수 있습니다.</p>
       </motion.div>
 
       <motion.div
@@ -191,10 +191,10 @@ const ProblemSection = () => (
           <p>심층 집중력 부재로 인한 성적 급락 곡선</p>
           <motion.div
             className="chart-container"
-            initial={{ clipPath: 'inset(0 100% 0 0)', opacity: 0 }}
-            whileInView={{ clipPath: 'inset(0 0% 0 0)', opacity: 1 }}
-            transition={{ duration: 1.5, delay: 0.5, ease: "easeInOut" }}
-            viewport={{ once: true, amount: 0.5 }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.5 }}
+            viewport={{ once: true, amount: 0.3 }}
           >
             <ResponsiveContainer width="100%" height={220}>
               <LineChart data={cliffData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
@@ -371,77 +371,84 @@ const SolutionSection = () => (
   </section>
 );
 
-const SystemSection = () => (
-  <section id="system" className="system">
-    <div className="container">
-      <motion.div
-        className="section-header"
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.5 }}
-        transition={{ duration: 0.8 }}
-      >
-        <h2>상위 1%의 습관, '알림 서비스'</h2>
-        <p>감시가 아니라, 아이의 학습 환경을 지키는 가장 확실한 방법입니다.</p>
-      </motion.div>
+const SystemSection = () => {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "center center"]
+  });
 
-      <motion.div
-        className="kakao-mockup"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-      >
-        {/* Message 1 */}
-        <motion.div className="kakao-msg-wrapper" variants={itemVariants}>
-          <div className="kakao-profile">F</div>
-          <div className="kakao-content">
-            <div className="kakao-name">FlowGuard</div>
-            <div className="kakao-bubble">
-              [격려] OO이가 초집중 상태입니다! (60분 돌파) 🚀
-            </div>
-          </div>
+  const y1 = useTransform(scrollYProgress, [0, 1], [100, 0]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [200, 0]);
+  const y3 = useTransform(scrollYProgress, [0, 1], [300, 0]);
+  const y4 = useTransform(scrollYProgress, [0, 1], [400, 0]);
+
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
+
+  return (
+    <section id="system" className="system" ref={ref}>
+      <div className="container">
+        <motion.div
+          className="section-header"
+          style={{ opacity: opacity }}
+          transition={{ duration: 0.8 }}
+        >
+          <h2>상위 1%의 습관, '알림 서비스'</h2>
+          <p>감시가 아니라, 아이의 학습 환경을 지키는 가장 확실한 방법입니다.</p>
         </motion.div>
-        {/* Message 2 */}
-        <motion.div className="kakao-msg-wrapper" variants={itemVariants}>
-          <div className="kakao-profile">F</div>
-          <div className="kakao-content">
-            <div className="kakao-name">FlowGuard</div>
-            <div className="kakao-bubble warning">
-              [주의] OO이가 3분간 자리를 비웠습니다. 확인이 필요합니다. ⚠️
+
+        <div className="kakao-mockup">
+          {/* Message 1 */}
+          <motion.div className="kakao-msg-wrapper" style={{ y: y1, opacity: opacity }}>
+            <div className="kakao-profile"><Shield size={20} fill="#10B981" color="#10B981" /></div>
+            <div className="kakao-content">
+              <div className="kakao-name">FlowGuard</div>
+              <div className="kakao-bubble">
+                [격려] OO이가 초집중 상태입니다! (60분 돌파) 🚀
+              </div>
             </div>
-          </div>
-        </motion.div>
-        {/* Message 3 */}
-        <motion.div className="kakao-msg-wrapper" variants={itemVariants}>
-          <div className="kakao-profile">F</div>
-          <div className="kakao-content">
-            <div className="kakao-name">FlowGuard</div>
-            <div className="kakao-bubble">
-              수학 공부 종료. ✅<br />
-              순공 시간: 1시간 40분<br />
-              평균 집중도: 88% (상위 10%)<br />
-              📝 OO이의 한 줄 회고: '오늘은 함수 문제를 다 풀어서 뿌듯해요.'
+          </motion.div>
+          {/* Message 2 */}
+          <motion.div className="kakao-msg-wrapper" style={{ y: y2, opacity: opacity }}>
+            <div className="kakao-profile"><Shield size={20} fill="#10B981" color="#10B981" /></div>
+            <div className="kakao-content">
+              <div className="kakao-name">FlowGuard</div>
+              <div className="kakao-bubble warning">
+                [주의] OO이가 3분간 자리를 비웠습니다. 확인이 필요합니다. ⚠️
+              </div>
             </div>
-          </div>
-        </motion.div>
-        {/* Message 4 */}
-        <motion.div className="kakao-msg-wrapper" variants={itemVariants}>
-          <div className="kakao-profile">F</div>
-          <div className="kakao-content">
-            <div className="kakao-name">FlowGuard</div>
-            <div className="kakao-bubble clickable">
-              📊 [일간 리포트] <br />
-              오늘 OO이는 총 3시간 20분간 몰입했습니다.<br />
-              오늘 가장 집중력이 높았던 시간은 오후 4시였습니다.<br />
-              <span className="link-text">클릭 시 일간 상세 리포트 페이지 접속</span>
+          </motion.div>
+          {/* Message 3 */}
+          <motion.div className="kakao-msg-wrapper" style={{ y: y3, opacity: opacity }}>
+            <div className="kakao-profile"><Shield size={20} fill="#10B981" color="#10B981" /></div>
+            <div className="kakao-content">
+              <div className="kakao-name">FlowGuard</div>
+              <div className="kakao-bubble">
+                수학 공부 종료. ✅<br />
+                순공 시간: 1시간 40분<br />
+                평균 집중도: 88% (상위 10%)<br />
+                📝 OO이의 한 줄 회고: '오늘은 함수 문제를 다 풀어서 뿌듯해요.'
+              </div>
             </div>
-          </div>
-        </motion.div>
-      </motion.div>
-    </div>
-  </section>
-);
+          </motion.div>
+          {/* Message 4 */}
+          <motion.div className="kakao-msg-wrapper" style={{ y: y4, opacity: opacity }}>
+            <div className="kakao-profile"><Shield size={20} fill="#10B981" color="#10B981" /></div>
+            <div className="kakao-content">
+              <div className="kakao-name">FlowGuard</div>
+              <div className="kakao-bubble clickable">
+                📊 [일간 리포트] <br />
+                오늘 OO이는 총 3시간 20분간 몰입했습니다.<br />
+                오늘 가장 집중력이 높았던 시간은 오후 4시였습니다.<br />
+                <span className="link-text">클릭 시 일간 상세 리포트 페이지 접속</span>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+};
 
 import aiConsultImg from './assets/ai_consult_robot.png';
 import { useScroll, useTransform, useSpring, useInView } from "framer-motion";

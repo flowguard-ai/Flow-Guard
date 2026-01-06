@@ -1,5 +1,5 @@
 html {
-  scroll-snap-type: y proximity;
+  scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
 }
 
@@ -814,6 +814,10 @@ section {
   align-items: baseline;
   justify-content: center;
   white-space: nowrap;
+}
+
+.eff-metric strong span {
+  font-size: inherit !important;
 }
 
 .detail-header {
