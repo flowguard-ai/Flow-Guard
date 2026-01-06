@@ -43,33 +43,25 @@ const ProblemSection = () => {
                             borderRadius: '16px',
                             border: '2px solid rgba(239, 68, 68, 0.1)'
                         }}>
+                            {/* 10개 박스 그리드 (5x2) */}
                             <div style={{
-                                fontSize: '3rem',
-                                fontWeight: '800',
-                                color: '#ef4444',
-                                textAlign: 'center',
-                                marginBottom: '12px'
+                                display: 'grid',
+                                gridTemplateColumns: 'repeat(5, 1fr)',
+                                gap: '12px',
+                                marginBottom: '20px'
                             }}>
-                                <div style={{
-                                    display: 'grid',
-                                    gridTemplateColumns: 'repeat(5, 1fr)',
-                                    gap: '10px',
-                                    marginBottom: '16px'
-                                }}>
-                                    {[...Array(10)].map((_, i) => (
-                                        <div
-                                            key={i}
-                                            style={{
-                                                aspectRatio: '1',
-                                                borderRadius: '8px',
-                                                background: i < 4 ? '#ef4444' : '#f1f5f9',
-                                                border: i < 4 ? '2px solid #dc2626' : '2px solid #e2e8f0',
-                                                transition: 'all 0.3s ease',
-                                                boxShadow: i < 4 ? '0 2px 8px rgba(239, 68, 68, 0.3)' : 'none'
-                                            }}
-                                        />
-                                    ))}
-                                </div>
+                                {[...Array(10)].map((_, index) => (
+                                    <div
+                                        key={index}
+                                        style={{
+                                            aspectRatio: '1',
+                                            borderRadius: '8px',
+                                            background: index < 4 ? '#ef4444' : '#e2e8f0',
+                                            transition: 'all 0.3s ease',
+                                            boxShadow: index < 4 ? '0 4px 12px rgba(239, 68, 68, 0.2)' : 'none'
+                                        }}
+                                    />
+                                ))}
                             </div>
                             <p style={{
                                 textAlign: 'center',
