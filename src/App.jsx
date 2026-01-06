@@ -191,9 +191,9 @@ const ProblemSection = () => (
           <p>심층 집중력 부재로 인한 성적 급락 곡선</p>
           <motion.div
             className="chart-container"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.5 }}
+            initial={{ clipPath: 'inset(0 100% 0 0)', opacity: 0 }}
+            whileInView={{ clipPath: 'inset(0 0% 0 0)', opacity: 1 }}
+            transition={{ duration: 1.5, delay: 0.2, ease: "easeOut" }}
             viewport={{ once: true, amount: 0.3 }}
           >
             <ResponsiveContainer width="100%" height={220}>
