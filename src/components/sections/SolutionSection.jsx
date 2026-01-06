@@ -49,7 +49,8 @@ const SolutionSection = () => (
                     fontSize: '0.9rem',
                     color: '#64748b',
                     marginTop: '20px',
-                    lineHeight: '1.6'
+                    lineHeight: '1.6',
+                    whiteSpace: 'nowrap'
                 }}>
                     MDPI 및 PubMed 등재 논문들이 시선 추적 기술이 학습 집중도를 측정하는 유효한 방법임을 입증하고 있습니다.
                 </p>
