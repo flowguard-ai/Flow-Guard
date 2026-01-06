@@ -49,7 +49,28 @@ const ProblemSection = () => {
                                 color: '#ef4444',
                                 textAlign: 'center',
                                 marginBottom: '12px'
-                            }}>4/10</div>
+                            }}>
+                                <div style={{
+                                    display: 'grid',
+                                    gridTemplateColumns: 'repeat(5, 1fr)',
+                                    gap: '10px',
+                                    marginBottom: '16px'
+                                }}>
+                                    {[...Array(10)].map((_, i) => (
+                                        <div
+                                            key={i}
+                                            style={{
+                                                aspectRatio: '1',
+                                                borderRadius: '8px',
+                                                background: i < 4 ? '#ef4444' : '#f1f5f9',
+                                                border: i < 4 ? '2px solid #dc2626' : '2px solid #e2e8f0',
+                                                transition: 'all 0.3s ease',
+                                                boxShadow: i < 4 ? '0 2px 8px rgba(239, 68, 68, 0.3)' : 'none'
+                                            }}
+                                        />
+                                    ))}
+                                </div>
+                            </div>
                             <p style={{
                                 textAlign: 'center',
                                 fontSize: '0.9rem',

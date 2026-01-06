@@ -13,10 +13,30 @@ const BetaResults = () => (
                 viewport={{ once: true, amount: 0.5 }}
             >
                 <div className="section-badge">REAL EVIDENCE</div>
-                <h2>[실제 베타 테스터 1개월 변화 수치]</h2>
-                <p style={{ fontSize: '1.5rem', fontWeight: 600, color: 'white', marginTop: '20px', marginBottom: '10px' }}>
-                    FlowGuard는 딥러닝 AI로 집중력 문제를 해결합니다.
-                </p>
+                <motion.h2
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true, amount: 0.5 }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                >[실제 베타 테스터 1개월 변화 수치]</motion.h2>
+                <motion.p
+                    style={{
+                        fontSize: '2.2rem',
+                        fontWeight: 700,
+                        color: 'white',
+                        marginTop: '30px',
+                        marginBottom: '15px',
+                        lineHeight: '1.3',
+                        textShadow: '0 2px 20px rgba(16, 185, 129, 0.3)'
+                    }}
+                    initial={{ opacity: 0, y: -30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.5 }}
+                    transition={{ duration: 1, delay: 0.5, type: "spring", bounce: 0.3 }}
+                >
+                    <span style={{ color: 'var(--secondary-emerald)' }}>FlowGuard</span>는 딥러닝 AI로<br />
+                    집중력 문제를 해결합니다.
+                </motion.p>
                 <p className="beta-impact-text">실제 이용자들의 변화</p>
             </motion.div>
             <motion.div
@@ -25,6 +45,7 @@ const BetaResults = () => (
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.3 }}
+                transition={{ delay: 0.8 }}
             >
                 <motion.div className="beta-card" variants={itemVariants} whileHover={{ y: -10, boxShadow: "0 20px 40px rgba(16, 185, 129, 0.2)" }}>
                     <div className="beta-user">A학생 (초6)</div>
