@@ -19,7 +19,7 @@ const HeroSection = () => (
                     <span className="hero-badge">골든타임의 경고</span>
                 </div>
                 <h1>초5~중2, 우리 아이 전두엽을 살릴<br />마지막 <span>골든타임</span>입니다.</h1>
-                <p>Flow Guard AI캠스터디를 통해 집중력 70% 증가한 최민서 학생 후기 보러가기</p>
+                <p>Flow Guard AI 캠스터디를 통해 집중력 70% 증가한 최민서 학생 후기 보러가기</p>
                 <div className="hero-actions">
                     <button className="primary-btn" onClick={() => document.getElementById('consultation').scrollIntoView({ behavior: 'smooth' })}>내 아이 집중력 MRI 촬영하기 <ArrowRight size={18} /></button>
                 </div>

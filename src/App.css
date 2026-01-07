@@ -966,28 +966,71 @@ section {
   background: var(--primary-deep-blue);
   color: white;
   text-align: center;
+  overflow: hidden;
 }
 
-.review-box {
-  max-width: 800px;
-  margin: 0 auto 80px;
+.review-slider-section {
+  margin-bottom: 80px;
 }
 
-.review-box blockquote {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 20px;
-  line-height: 1.4;
-}
-
-.review-box cite {
-  font-style: normal;
+.slider-hint {
+  font-size: 1.2rem;
   opacity: 0.7;
+  margin-bottom: 30px;
+  font-weight: 500;
+}
+
+.review-slider {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding: 20px 0;
+}
+
+.review-track {
+  display: flex;
+  gap: 30px;
+  width: fit-content;
+}
+
+.review-card {
+  flex-shrink: 0;
+  width: 450px;
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.review-card:hover {
+  transform: translateY(-10px);
+}
+
+.review-card img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 .pricing h3 {
   font-size: 3rem;
   margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+  .review-card {
+    width: 300px;
+  }
+
+  .review-slider-section {
+    margin-bottom: 60px;
+  }
+
+  .slider-hint {
+    font-size: 1rem;
+    padding: 0 20px;
+  }
 }
 
 .pricing p {
