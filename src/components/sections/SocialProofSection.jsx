@@ -13,9 +13,9 @@ const SocialProofSection = () => (
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
         >
-            <div className="section-header white">
+            <div className="section-header">
                 <span className="section-badge">Social Proof</span>
-                <h2 style={{ color: 'white' }}>이미 많은 부모님들이 직접 경험하고 계십니다</h2>
+                <h2>이미 많은 부모님들이 직접 경험하고 계십니다</h2>
             </div>
 
             <div className="reviews-grid">

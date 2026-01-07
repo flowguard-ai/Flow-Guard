@@ -961,10 +961,11 @@ section {
 }
 
 /* Social Proof */
-.section-header.white .section-badge {
-  background: rgba(255, 255, 255, 0.1);
-  color: var(--secondary-emerald);
-  border-color: rgba(255, 255, 255, 0.2);
+.social-proof {
+  padding: 100px 0;
+  background: #f9fafb;
+  color: var(--primary-deep-blue);
+  text-align: center;
 }
 
 .reviews-grid {
