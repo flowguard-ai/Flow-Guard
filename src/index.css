@@ -21,6 +21,12 @@
   --section-padding: 140px 5%;
 }
 
+@media (max-width: 768px) {
+  :root {
+    --section-padding: 80px 5%;
+  }
+}
+
 * {
   margin: 0;
   padding: 0;
