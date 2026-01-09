@@ -91,7 +91,7 @@ const ImpactBridge = () => {
                         transition={{ duration: 0.8, delay: 0.4 }}
                         style={{ display: 'block', color: 'white' }}
                     >
-                        FlowGuard는
+                        순공시간은
                     </motion.span>
                     <motion.span
                         initial={{ opacity: 0, x: 50 }}

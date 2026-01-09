@@ -35,7 +35,7 @@ const SystemSection = () => {
                             <img src={aiConsultImg} alt="AI Bot" />
                         </div>
                         <div className="kakao-content">
-                            <div className="kakao-name">FlowGuard</div>
+                            <div className="kakao-name">순공시간</div>
                             <div className="kakao-bubble">
                                 [격려] OO이가 초집중 상태입니다! (60분 돌파) 🚀
                             </div>
@@ -47,7 +47,7 @@ const SystemSection = () => {
                             <img src={aiConsultImg} alt="AI Bot" />
                         </div>
                         <div className="kakao-content">
-                            <div className="kakao-name">FlowGuard</div>
+                            <div className="kakao-name">순공시간</div>
                             <div className="kakao-bubble warning">
                                 [주의] OO이가 3분간 자리를 비웠습니다. 확인이 필요합니다. ⚠️
                             </div>
@@ -59,7 +59,7 @@ const SystemSection = () => {
                             <img src={aiConsultImg} alt="AI Bot" />
                         </div>
                         <div className="kakao-content">
-                            <div className="kakao-name">FlowGuard</div>
+                            <div className="kakao-name">순공시간</div>
                             <div className="kakao-bubble">
                                 수학 공부 종료. ✅<br />
                                 순공 시간: 1시간 40분<br />
@@ -74,7 +74,7 @@ const SystemSection = () => {
                             <img src={aiConsultImg} alt="AI Bot" />
                         </div>
                         <div className="kakao-content">
-                            <div className="kakao-name">FlowGuard</div>
+                            <div className="kakao-name">순공시간</div>
                             <div className="kakao-bubble clickable">
                                 📊 [일간 리포트] <br />
                                 오늘 OO이는 총 3시간 20분간 몰입했습니다.<br />
