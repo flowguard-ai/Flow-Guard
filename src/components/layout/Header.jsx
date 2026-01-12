@@ -9,11 +9,11 @@ const Header = () => (
                 <span>순공시간</span>
             </div>
             <nav className="desktop-nav">
-                <a href="#problem">위험성</a>
                 <a href="#pricing">가격 및 플랜</a>
-                <a href="#solution">AI솔루션</a>
-                <a href="#system">시스템</a>
-                <a href="#report">리포트</a>
+                <a href="#footer" onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById('footer').scrollIntoView({ behavior: 'smooth' });
+                }}>사업자 정보</a>
             </nav>
             <button className="cta-button" onClick={() => document.getElementById('consultation').scrollIntoView({ behavior: 'smooth' })}>내 아이 집중력 MRI 촬영하기</button>
         </div>
